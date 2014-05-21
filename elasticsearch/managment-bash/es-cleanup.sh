@@ -12,6 +12,12 @@
 # Author - Johnathan Phan - 03-12-2013
 # johnp@cc-g.co.uk
 
+# Add this to your cron 
+# Clean out ES database
+# * 1 * * * /scripts/es-cleanup.sh > /dev/null 2>&1
+
+# ps use https://github.com/elasticsearch/curator/ it's better than my script.
+
 usage()
 {
 cat << EOF
@@ -139,8 +145,8 @@ DDATE=$(date +%Y.%m.%d -d "$KEEP days ago")
     # We don't want to accidentally delete everything
     if [ -n "$index" ]; then
         INDEXDATE="${index##*-}"
-        echo "logging $LOG"
-        echo "debugging $DEBUG"
+        # echo "logging $LOG"
+        # echo "debugging $DEBUG"
         if [ "$LOG" = true ] ; then
                 if [ ! "$INDEXDATE" \> "$DDATE" ]; then
                         if [ "$DEBUG" = true ] ; then
